@@ -1,0 +1,6 @@
+{
+  "name": "Usizolethu Holdings (Pty) Ltd",
+  "description": "Level 1 BBBEE mining consultancy and equipment supplier specializing in electrical mining supplies, personal protective equipment, geological exploration, and national logistics across South Africa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
