@@ -11,7 +11,7 @@ export const SectionBackdrop: React.FC<SectionBackdropProps> = ({
   src,
   alt,
   scrimClassName,
-  imageClassName = 'opacity-90',
+  imageClassName = 'opacity-85',
 }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -26,7 +26,7 @@ export const SectionBackdrop: React.FC<SectionBackdropProps> = ({
           className={`w-full h-full object-cover object-center ${imageClassName}`}
         />
       ) : (
-        <div className="w-full h-full bg-gradient-to-br from-neutral-100 via-neutral-50 to-neutral-200/60" />
+        <div className="w-full h-full bg-gradient-to-br from-[#141414] via-[#1A1A1A] to-[#242424]" />
       )}
       <div className={`absolute inset-0 ${scrimClassName}`} />
     </div>

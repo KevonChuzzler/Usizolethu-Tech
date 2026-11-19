@@ -89,40 +89,40 @@ export const QuoteForm: React.FC = () => {
 
   if (submittedData) {
     return (
-      <div className="border border-neutral-200 bg-neutral-50 p-8 sm:p-10">
-        <div className="flex items-center gap-3 text-[var(--color-brand)] mb-4">
-          <div className="w-8 h-8 border border-[var(--color-brand)]/30 bg-[var(--color-brand-light)] flex items-center justify-center">
-            <Check className="w-4 h-4" />
+      <div className="border border-[#9ADBE8]/40 bg-[#141414]/90 p-8 sm:p-10">
+        <div className="flex items-center gap-3 text-white mb-4">
+          <div className="w-8 h-8 bg-[#9ADBE8] flex items-center justify-center">
+            <Check className="w-4 h-4 text-[#1A1A1A]" />
           </div>
-          <span className="text-sm font-medium text-neutral-900">
+          <span className="text-sm font-medium text-[#9ADBE8]">
             Enquiry Prepared for Review
           </span>
         </div>
 
-        <h3 className="text-2xl font-medium text-neutral-900 mb-3">
+        <h3 className="text-2xl font-medium text-white mb-3">
           Thank you, {submittedData.fullName}.
         </h3>
-        <p className="text-neutral-600 text-[15px] mb-6 max-w-xl">
+        <p className="text-neutral-300 text-[15px] mb-6 max-w-xl">
           Your specification summary for{' '}
-          <strong className="font-medium text-neutral-900">{submittedData.service}</strong> has been
+          <strong className="font-medium text-white">{submittedData.service}</strong> has been
           validated. Send it directly via your email client to reach our procurement desk, or call{' '}
           <a
             href={COMPANY_INFO.phoneHref}
-            className="text-[var(--color-brand)] underline underline-offset-4 tabular-nums"
+            className="text-[#9ADBE8] underline underline-offset-4 tabular-nums hover:text-white"
           >
             {COMPANY_INFO.phoneDisplay}
           </a>{' '}
           for urgent mine-site dispatches.
         </p>
 
-        <div className="border-t border-neutral-200 pt-5 mb-7 grid sm:grid-cols-2 gap-4 text-sm">
+        <div className="border-t border-white/10 pt-5 mb-7 grid sm:grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="block text-xs text-neutral-500">Organization</span>
-            <span className="text-neutral-900">{submittedData.company || 'Individual Enquiry'}</span>
+            <span className="block text-xs text-neutral-400">Organization</span>
+            <span className="text-white">{submittedData.company || 'Individual Enquiry'}</span>
           </div>
           <div>
-            <span className="block text-xs text-neutral-500">Contact</span>
-            <span className="text-neutral-900 tabular-nums">
+            <span className="block text-xs text-neutral-400">Contact</span>
+            <span className="text-white tabular-nums">
               {submittedData.email} · {submittedData.phone}
             </span>
           </div>
@@ -131,7 +131,7 @@ export const QuoteForm: React.FC = () => {
         <div className="flex flex-wrap items-center gap-4">
           <a
             href={buildMailtoHref(submittedData)}
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-neutral-900 hover:bg-[var(--color-brand)] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors"
           >
             <span>Send via Email Client</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -139,7 +139,7 @@ export const QuoteForm: React.FC = () => {
           <button
             type="button"
             onClick={handleReset}
-            className="px-5 py-3 text-sm font-normal text-neutral-600 hover:text-neutral-900 border border-neutral-300 bg-white transition-colors cursor-pointer"
+            className="px-5 py-3 text-sm font-normal text-neutral-300 hover:text-white border border-white/20 bg-transparent transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -152,8 +152,8 @@ export const QuoteForm: React.FC = () => {
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="quote-full-name" className="block text-sm font-medium text-neutral-800 mb-2">
-            Full Name <span className="text-[var(--color-brand)]">*</span>
+          <label htmlFor="quote-full-name" className="block text-sm font-medium text-neutral-200 mb-2">
+            Full Name <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
             id="quote-full-name"
@@ -164,17 +164,17 @@ export const QuoteForm: React.FC = () => {
             value={form.fullName}
             onChange={(e) => setForm({ ...form, fullName: e.target.value })}
             aria-invalid={Boolean(errors.fullName)}
-            className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 placeholder:text-neutral-400 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15"
+            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
           />
           {errors.fullName && (
-            <p className="mt-1.5 text-xs text-red-700" role="alert">
+            <p className="mt-1.5 text-xs text-red-400" role="alert">
               {errors.fullName}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="quote-company" className="block text-sm font-medium text-neutral-800 mb-2">
+          <label htmlFor="quote-company" className="block text-sm font-medium text-neutral-200 mb-2">
             Company / Mine Operation
           </label>
           <input
@@ -185,15 +185,15 @@ export const QuoteForm: React.FC = () => {
             placeholder="Organization name"
             value={form.company}
             onChange={(e) => setForm({ ...form, company: e.target.value })}
-            className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 placeholder:text-neutral-400 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15"
+            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
           />
         </div>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="quote-email" className="block text-sm font-medium text-neutral-800 mb-2">
-            Email Address <span className="text-[var(--color-brand)]">*</span>
+          <label htmlFor="quote-email" className="block text-sm font-medium text-neutral-200 mb-2">
+            Email Address <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
             id="quote-email"
@@ -204,18 +204,18 @@ export const QuoteForm: React.FC = () => {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             aria-invalid={Boolean(errors.email)}
-            className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 placeholder:text-neutral-400 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15"
+            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
           />
           {errors.email && (
-            <p className="mt-1.5 text-xs text-red-700" role="alert">
+            <p className="mt-1.5 text-xs text-red-400" role="alert">
               {errors.email}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="quote-phone" className="block text-sm font-medium text-neutral-800 mb-2">
-            Telephone / Mobile <span className="text-[var(--color-brand)]">*</span>
+          <label htmlFor="quote-phone" className="block text-sm font-medium text-neutral-200 mb-2">
+            Telephone / Mobile <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
             id="quote-phone"
@@ -226,10 +226,10 @@ export const QuoteForm: React.FC = () => {
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             aria-invalid={Boolean(errors.phone)}
-            className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 placeholder:text-neutral-400 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15 tabular-nums"
+            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20 tabular-nums"
           />
           {errors.phone && (
-            <p className="mt-1.5 text-xs text-red-700" role="alert">
+            <p className="mt-1.5 text-xs text-red-400" role="alert">
               {errors.phone}
             </p>
           )}
@@ -237,7 +237,7 @@ export const QuoteForm: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="quote-service" className="block text-sm font-medium text-neutral-800 mb-2">
+        <label htmlFor="quote-service" className="block text-sm font-medium text-neutral-200 mb-2">
           Primary Supply or Service Category
         </label>
         <select
@@ -245,22 +245,22 @@ export const QuoteForm: React.FC = () => {
           name="service"
           value={form.service}
           onChange={(e) => setForm({ ...form, service: e.target.value })}
-          className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15"
+          className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414] border border-white/15 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
         >
           {CORE_SERVICES.map((svc) => (
-            <option key={svc.index} value={svc.title}>
+            <option key={svc.index} value={svc.title} className="bg-[#1A1A1A] text-white">
               {svc.index}. {svc.title}
             </option>
           ))}
-          <option value="General Mining Consultancy & Multi-Supply">
+          <option value="General Mining Consultancy & Multi-Supply" className="bg-[#1A1A1A] text-white">
             05. General Mining Consultancy &amp; Multi-Supply
           </option>
         </select>
       </div>
 
       <div>
-        <label htmlFor="quote-details" className="block text-sm font-medium text-neutral-800 mb-2">
-          Project Specifications &amp; Delivery Location <span className="text-[var(--color-brand)]">*</span>
+        <label htmlFor="quote-details" className="block text-sm font-medium text-neutral-200 mb-2">
+          Project Specifications &amp; Delivery Location <span className="text-[#9ADBE8]">*</span>
         </label>
         <textarea
           id="quote-details"
@@ -270,23 +270,23 @@ export const QuoteForm: React.FC = () => {
           value={form.details}
           onChange={(e) => setForm({ ...form, details: e.target.value })}
           aria-invalid={Boolean(errors.details)}
-          className="w-full px-4 py-3.5 text-[15px] text-neutral-900 bg-white border border-neutral-300 placeholder:text-neutral-400 transition-colors focus:outline-none focus:border-[var(--color-brand)] focus:ring-2 focus:ring-[var(--color-brand)]/15 resize-y"
+          className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20 resize-y"
         />
         {errors.details && (
-          <p className="mt-1.5 text-xs text-red-700" role="alert">
+          <p className="mt-1.5 text-xs text-red-400" role="alert">
             {errors.details}
           </p>
         )}
       </div>
 
       <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <p className="text-xs text-neutral-500 max-w-sm">
+        <p className="text-xs text-neutral-400 max-w-sm">
           Protected under POPIA. Details are used exclusively to respond to your quotation or
           callback request.
         </p>
         <button
           type="submit"
-          className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-white bg-neutral-900 hover:bg-[var(--color-brand)] transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)]"
+          className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
         >
           Submit Quote Request
         </button>
