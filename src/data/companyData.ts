@@ -3,6 +3,8 @@ export interface ServiceItem {
   title: string;
   scope: string;
   description: string;
+  details: string;
+  capabilities: string[];
 }
 
 export interface StrategicPillar {
@@ -72,6 +74,13 @@ export const CORE_SERVICES: ServiceItem[] = [
     scope: 'Geological Surveys · Resource Discovery',
     description:
       'Structured geological surveys and modern exploration technology supporting accurate site assessment, mineral mapping, and early-stage resource discovery.',
+    details:
+      'Our exploration consultancy supports project owners from preliminary reconnaissance through site delineation. We combine field survey execution with modern geophysical and mapping workflows to reduce uncertainty prior to capital deployment.',
+    capabilities: [
+      'Surface and subsurface geological site assessments',
+      'Mineral deposit mapping and resource boundary verification',
+      'Exploration technology coordination with environmental compliance',
+    ],
   },
   {
     index: '02',
@@ -79,6 +88,13 @@ export const CORE_SERVICES: ServiceItem[] = [
     scope: 'Industrial Power · Mine Infrastructure',
     description:
       'Dependable sourcing and site-ready distribution of certified electrical mining supplies engineered for demanding underground and surface operating environments.',
+    details:
+      'We supply robust, standards-compliant electrical equipment built to withstand high-load mining operations, moisture, and dust exposure—helping operations minimize downtime and maintain continuous power distribution.',
+    capabilities: [
+      'Heavy-duty trailing cables, switchgear, and isolation panels',
+      'Substation and site-power distribution components',
+      'Specification-matched procurement for mine maintenance teams',
+    ],
   },
   {
     index: '03',
@@ -86,6 +102,13 @@ export const CORE_SERVICES: ServiceItem[] = [
     scope: 'Personal Protective Equipment · Workforce Safety',
     description:
       'High-specification personal protective equipment (PPE) and safety gear built to protect mining personnel and maintain strict regulatory site compliance.',
+    details:
+      'Safety underpins every operation we serve. We procure and deliver durable, certified PPE tailored for underground crews, plant operators, and surface engineering teams in accordance with South African mine health and safety standards.',
+    capabilities: [
+      'Impact-rated hardhats, high-visibility workwear, and protective footwear',
+      'Respiratory, hearing, and eye protection for high-dust zones',
+      'Bulk replenishment schedules for active mine sites and contractors',
+    ],
   },
   {
     index: '04',
@@ -93,6 +116,13 @@ export const CORE_SERVICES: ServiceItem[] = [
     scope: 'National Transport · Scheduled Distribution',
     description:
       'Reliable transport, fleet coordination, and scheduled distribution connecting equipment hubs directly to regional and national mining markets.',
+    details:
+      'We bridge the gap between industrial manufacturers and remote mining operations across Mpumalanga and national corridors, managing dispatch scheduling, load security, and on-site delivery accountability.',
+    capabilities: [
+      'Scheduled mine-site freight across regional and national routes',
+      'Urgent plant and replacement-part dispatch coordination',
+      'End-to-end chain-of-custody tracking to mine receiving bays',
+    ],
   },
 ];
 

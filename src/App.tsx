@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { MotionConfig, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -40,7 +40,7 @@ const PILLAR_ICONS = [Binoculars, Target, Handshake, TrendingUp];
 
 export default function App() {
   const headerRef = useRef<HTMLElement | null>(null);
-  const [logoError, setLogoError] = useState(false);
+  const [expandedService, setExpandedService] = useState<string | null>(null);
 
   // Privacy modal state: opens automatically on first entry
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -122,285 +122,183 @@ export default function App() {
             {/* Signature PDF 5-Chevron Motif */}
             <ChevronMotif className="hidden md:block absolute top-10 right-10 w-40 opacity-80" />
 
-            <div className="relative mx-auto max-w-6xl px-6 pt-14 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24">
-              <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
-                {/* Left Column: Primary Proposition */}
-                <div className="lg:col-span-7 flex flex-col justify-between">
-                  <div>
-                    <p className="text-xs sm:text-sm font-normal text-neutral-300 tabular-nums mb-6">
-                      Reg No. : <span className="text-white">{COMPANY_INFO.regNo}</span>{' '}
-                      <span aria-hidden="true" className="text-[#9ADBE8] mx-1.5">·</span>
-                      Supplier No. : <span className="text-white">{COMPANY_INFO.supplierNo}</span>
-                    </p>
+            <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32">
+              <div className="max-w-2xl">
+                <p className="text-xs sm:text-sm font-normal text-neutral-300 tabular-nums mb-6">
+                  Reg No. : <span className="text-white">{COMPANY_INFO.regNo}</span>{' '}
+                  <span aria-hidden="true" className="text-[#9ADBE8] mx-1.5">·</span>
+                  Supplier No. : <span className="text-white">{COMPANY_INFO.supplierNo}</span>
+                </p>
 
-                    <h1
-                      className="text-white font-medium mb-6"
-                      style={{
-                        fontSize: 'clamp(2.35rem, 4.3vw, 3.85rem)',
-                        letterSpacing: '-0.035em',
-                        lineHeight: 1.07,
-                      }}
-                    >
-                      Reliable mining supply{' '}
-                      <span className="text-[#9ADBE8]">&amp; industrial distribution.</span>
-                    </h1>
+                <h1
+                  className="text-white font-medium mb-6"
+                  style={{
+                    fontSize: 'clamp(2.35rem, 4.3vw, 3.85rem)',
+                    letterSpacing: '-0.035em',
+                    lineHeight: 1.07,
+                  }}
+                >
+                  Reliable mining supply{' '}
+                  <span className="text-[#9ADBE8]">&amp; industrial distribution.</span>
+                </h1>
 
-                    <p className="text-base sm:text-lg text-neutral-200 font-normal max-w-2xl leading-relaxed mb-10">
-                      Usizolethu Holdings (Pty) Ltd is a South African mining consultancy and
-                      equipment partner delivering electrical mining supplies, certified personal
-                      protective equipment, geological exploration, and national logistics.
-                    </p>
-                  </div>
+                <p className="text-base sm:text-lg text-neutral-200 font-normal max-w-2xl leading-relaxed mb-10">
+                  Usizolethu Holdings (Pty) Ltd is a South African mining consultancy and
+                  equipment partner delivering electrical mining supplies, certified personal
+                  protective equipment, geological exploration, and national logistics.
+                </p>
 
-                  <div className="flex flex-wrap items-center gap-5">
-                    <button
-                      type="button"
-                      onClick={() => scrollToSection('quote')}
-                      className="inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
-                    >
-                      <span>Request a Free Quote</span>
-                      <ArrowDownRight className="w-4 h-4" aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Right Column: Framed Brand Emblem Card matching Dark/Ice-Cyan Contrast */}
-                <div className="lg:col-span-5 flex">
-                  <div className="relative w-full bg-[#141414]/88 backdrop-blur-sm border border-[#9ADBE8]/45 p-7 sm:p-9 flex flex-col justify-between">
-                    {/* Subtle geometric corner marks */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-3 left-3 w-3 h-3 border-t border-l border-[#9ADBE8]/60"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-3 right-3 w-3 h-3 border-t border-r border-[#9ADBE8]/60"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-[#9ADBE8]/60"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-[#9ADBE8]/60"
-                    />
-
-                    <div className="flex-1 flex items-center justify-center py-3">
-                      {!logoError ? (
-                        <div className="bg-white p-5 sm:p-6 border border-white/15">
-                          <img
-                            src={COMPANY_INFO.logoSrc}
-                            alt="Usizolethu Holdings emblem"
-                            referrerPolicy="no-referrer"
-                            onError={() => setLogoError(true)}
-                            className="w-48 sm:w-56 h-auto object-contain select-none"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-56 h-56 bg-[#1A1A1A] border border-[#9ADBE8]/40 flex flex-col items-center justify-center p-6 text-center">
-                          <span className="text-xl font-medium text-white">
-                            {COMPANY_INFO.shortName}
-                          </span>
-                          <span className="text-xs text-[#9ADBE8] mt-1">
-                            Mining &amp; Industrial Supply
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="pt-5 border-t border-white/15 flex items-center justify-between gap-4 text-xs text-neutral-300">
-                      <span>
-                        Presented by:{' '}
-                        <span className="text-white">{COMPANY_INFO.director}</span>
-                      </span>
-                      <span className="tabular-nums text-[#9ADBE8]">{COMPANY_INFO.phoneDisplay}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Full-width 4-Column Foundational Strip */}
-              <div className="mt-14 pt-8 pb-6 px-6 sm:px-8 border border-[#9ADBE8]/35 bg-[#141414]/85 backdrop-blur-sm grid grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                  <p className="text-2xl sm:text-3xl font-medium text-white tabular-nums">
-                    100%
-                  </p>
-                  <p className="text-sm text-neutral-300 mt-1">Black Youth Owned EME</p>
-                </div>
-                <div>
-                  <p className="text-2xl sm:text-3xl font-medium text-[#9ADBE8]">
-                    Level 1
-                  </p>
-                  <p className="text-sm text-neutral-300 mt-1">BBBEE Contributor Status</p>
-                </div>
-                <div>
-                  <p className="text-2xl sm:text-3xl font-medium text-white">
-                    National
-                  </p>
-                  <p className="text-sm text-neutral-300 mt-1">Supply &amp; Fleet Distribution</p>
-                </div>
-                <div>
-                  <p className="text-2xl sm:text-3xl font-medium text-[#9ADBE8] tabular-nums">
-                    MAAA1615450
-                  </p>
-                  <p className="text-sm text-neutral-300 mt-1">Registered CSD Supplier</p>
+                <div className="flex flex-wrap items-center gap-5">
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection('quote')}
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
+                  >
+                    <span>Request a Free Quote</span>
+                    <ArrowDownRight className="w-4 h-4" aria-hidden="true" />
+                  </button>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 2. ABOUT & VISION FOR THE FUTURE — Open-Pit Mine Backdrop + PDF Page 2 & 3 Visual Structure */}
+          {/* 2. ABOUT & VISION FOR THE FUTURE — Unboxed Editorial Split + Architectural Pillar Grid */}
           <section id="about" className="relative overflow-hidden bg-[#1A1A1A] border-b border-white/10">
             <SectionBackdrop
               src={SECTION_IMAGES.aboutOpenPit}
               alt="Panoramic open-pit mining haul road with mining trucks and excavator"
               imageClassName="opacity-85"
-              scrimClassName="bg-gradient-to-r from-[#1A1A1A]/95 via-[#1A1A1A]/75 to-[#1A1A1A]/35"
+              scrimClassName="bg-gradient-to-r from-[#1A1A1A] via-[#1A1A1A]/82 to-[#1A1A1A]/45"
             />
 
             {/* PDF Dot Matrix Corner Accent */}
-            <DotMatrixAccent className="hidden lg:block absolute bottom-4 right-6 w-44 opacity-85" />
+            <DotMatrixAccent className="hidden lg:block absolute bottom-4 right-6 w-44 opacity-80" />
 
-            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-24">
+            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-16"
+                className="grid lg:grid-cols-12 gap-14 lg:gap-16 items-start"
               >
-                {/* Top Split: About Us + Leadership */}
-                <div className="grid lg:grid-cols-12 gap-12 items-start">
-                  <div className="lg:col-span-6 bg-[#141414]/86 backdrop-blur-sm border border-[#9ADBE8]/35 p-7 sm:p-9">
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <h2 className="text-3xl sm:text-4xl font-medium text-white">
-                        About <span className="text-[#9ADBE8]">Us</span>
-                      </h2>
-                      <ChevronMotif className="w-24 opacity-75 shrink-0" />
-                    </div>
-                    <p className="text-neutral-200 text-[15px] sm:text-base leading-relaxed mb-8">
-                      {ABOUT_SUMMARY}
-                    </p>
-
-                    <ul className="space-y-3.5 border-t border-white/15 pt-6">
-                      {ABOUT_HIGHLIGHTS.map((item, idx) => (
-                        <li
-                          key={item}
-                          className="flex items-center gap-3 text-sm sm:text-[15px] text-neutral-100"
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={`w-2 h-2 shrink-0 ${
-                              idx === 0 ? 'bg-[#9ADBE8]' : 'border border-[#9ADBE8]'
-                            }`}
-                          />
-                          <span className={idx === 0 ? 'text-[#9ADBE8] font-medium' : ''}>
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
-                      <div>
-                        <p className="text-xs text-neutral-400">Director &amp; Founder</p>
-                        <p className="text-base font-medium text-white mt-0.5">
-                          {COMPANY_INFO.director}
-                        </p>
-                      </div>
-                      <a
-                        href={`mailto:${COMPANY_INFO.directorEmail}`}
-                        className="text-sm text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
-                      >
-                        {COMPANY_INFO.directorEmail}
-                      </a>
-                    </div>
+                {/* Left Column: Open Unboxed Editorial Prose */}
+                <div className="lg:col-span-5">
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <h2 className="text-3xl sm:text-4xl font-medium text-white">
+                      About <span className="text-[#9ADBE8]">Us</span>
+                    </h2>
+                    <ChevronMotif className="w-24 opacity-75 shrink-0" />
                   </div>
 
-                  {/* Vision for the Future Intro + 4 Pillars mirroring PDF Page 3 */}
-                  <div className="lg:col-span-6 space-y-6">
-                    <div className="bg-[#141414]/82 backdrop-blur-sm border border-white/15 p-7 sm:p-8">
-                      <h3 className="text-2xl sm:text-3xl font-medium text-white mb-3">
-                        Vision for <span className="text-[#9ADBE8]">the Future</span>
-                      </h3>
-                      <p className="text-neutral-300 text-[15px] leading-relaxed">
-                        We aim to lead the mining industry through efficient distribution of
-                        electrical equipment and personal protective equipment, creating value for
-                        stakeholders while empowering local communities.
+                  <p className="text-neutral-200 text-[15px] sm:text-base leading-relaxed mb-9">
+                    {ABOUT_SUMMARY}
+                  </p>
+
+                  <ul className="space-y-4 border-t border-white/15 pt-7">
+                    {ABOUT_HIGHLIGHTS.map((item, idx) => (
+                      <li
+                        key={item}
+                        className="group flex items-center gap-3.5 text-sm sm:text-[15px] text-neutral-100"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`h-[1.5px] transition-all duration-200 shrink-0 ${
+                            idx === 0
+                              ? 'w-6 bg-[#9ADBE8]'
+                              : 'w-3 bg-white/40 group-hover:w-6 group-hover:bg-[#9ADBE8]'
+                          }`}
+                        />
+                        <span className={idx === 0 ? 'text-[#9ADBE8] font-medium' : 'group-hover:text-white transition-colors'}>
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-9 pt-7 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs text-neutral-400">Director &amp; Founder</p>
+                      <p className="text-base font-medium text-white mt-0.5">
+                        {COMPANY_INFO.director}
                       </p>
                     </div>
+                    <a
+                      href={`mailto:${COMPANY_INFO.directorEmail}`}
+                      className="text-sm text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
+                    >
+                      {COMPANY_INFO.directorEmail}
+                    </a>
+                  </div>
+                </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {STRATEGIC_PILLARS.map((pillar, idx) => {
-                        const isVision = idx === 0;
-                        const IconComponent = PILLAR_ICONS[idx];
-                        return (
-                          <div
-                            key={pillar.title}
-                            className={`p-6 sm:p-7 flex flex-col justify-between transition-colors ${
-                              isVision
-                                ? 'bg-[#9ADBE8] text-[#1A1A1A] border border-[#9ADBE8]'
-                                : 'bg-[#141414]/85 backdrop-blur-sm text-white border border-[#9ADBE8]/50'
+                {/* Right Column: Vision for the Future — Open Translucent Crosshair Grid */}
+                <div className="lg:col-span-7 space-y-10">
+                  <div className="border-b border-white/15 pb-8">
+                    <h3 className="text-2xl sm:text-3xl font-medium text-white mb-3">
+                      Vision for <span className="text-[#9ADBE8]">the Future</span>
+                    </h3>
+                    <p className="text-neutral-200 text-[15px] sm:text-base leading-relaxed max-w-2xl">
+                      We aim to lead the mining industry through efficient distribution of
+                      electrical equipment and personal protective equipment, creating value for
+                      stakeholders while empowering local communities.
+                    </p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 border-t border-l border-white/15 bg-[#141414]/45 backdrop-blur-sm">
+                    {STRATEGIC_PILLARS.map((pillar, idx) => {
+                      const IconComponent = PILLAR_ICONS[idx];
+                      return (
+                        <div
+                          key={pillar.title}
+                          className="group relative p-7 sm:p-8 border-r border-b border-white/15 transition-colors duration-200 hover:bg-[#141414]/75"
+                        >
+                          {/* Expanding top ice-cyan hairline on hover */}
+                          <span
+                            aria-hidden="true"
+                            className={`absolute top-0 left-0 h-[2px] bg-[#9ADBE8] transition-all duration-300 ${
+                              idx === 0 ? 'w-14 group-hover:w-full' : 'w-0 group-hover:w-full'
                             }`}
-                          >
-                            <div className="flex items-center justify-between mb-6">
-                              <span
-                                className={`text-xs tabular-nums ${
-                                  isVision ? 'text-[#1A1A1A]/70' : 'text-[#9ADBE8]'
-                                }`}
-                              >
-                                0{idx + 1}
-                              </span>
-                              <div
-                                className={`w-9 h-9 flex items-center justify-center ${
-                                  isVision
-                                    ? 'bg-[#1A1A1A] text-[#9ADBE8]'
-                                    : 'bg-[#9ADBE8] text-[#1A1A1A]'
-                                }`}
-                              >
-                                <IconComponent className="w-4 h-4" aria-hidden="true" />
-                              </div>
-                            </div>
+                          />
 
-                            <div>
-                              <h4
-                                className={`text-lg font-medium mb-2 ${
-                                  isVision ? 'text-[#1A1A1A]' : 'text-white'
-                                }`}
-                              >
-                                {pillar.title}
-                              </h4>
-                              <p
-                                className={`text-sm leading-relaxed ${
-                                  isVision ? 'text-[#1A1A1A]/85' : 'text-neutral-300'
-                                }`}
-                              >
-                                {pillar.description}
-                              </p>
-                            </div>
+                          <div className="flex items-center justify-between mb-7">
+                            <span className="text-xs text-[#9ADBE8]/80 tabular-nums">
+                              0{idx + 1}
+                            </span>
+                            <IconComponent
+                              className="w-4 h-4 text-[#9ADBE8]/75 group-hover:text-[#9ADBE8] transition-colors"
+                              aria-hidden="true"
+                            />
                           </div>
-                        );
-                      })}
-                    </div>
+
+                          <h4 className="text-lg font-medium text-white group-hover:text-[#9ADBE8] transition-colors mb-2.5">
+                            {pillar.title}
+                          </h4>
+                          <p className="text-sm text-neutral-300 leading-relaxed">
+                            {pillar.description}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </motion.div>
             </div>
           </section>
 
-          {/* 3. CORE SUPPLIES & SERVICES — PPE & Electrical Switchgear Backdrop + Editorial List */}
+          {/* 3. CORE SUPPLIES & SERVICES — Open Interactive Editorial Bands (No Boxes, No Numbering, No Icons) */}
           <section id="services" className="relative overflow-hidden bg-[#1A1A1A] border-b border-white/10">
             <SectionBackdrop
               src={SECTION_IMAGES.servicesPpeElectrical}
               alt="Mining safety hardhats and industrial electrical switchgear panels"
               imageClassName="opacity-80 object-right"
-              scrimClassName="bg-gradient-to-b from-[#1A1A1A]/90 via-[#1A1A1A]/68 to-[#1A1A1A]/92"
+              scrimClassName="bg-gradient-to-b from-[#1A1A1A]/90 via-[#1A1A1A]/72 to-[#1A1A1A]/92"
             />
 
             <ChevronMotif className="hidden md:block absolute bottom-12 left-10 w-36 opacity-70" />
 
-            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-24">
-              <div className="grid lg:grid-cols-12 gap-10 mb-12 items-end">
+            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
+              <div className="grid lg:grid-cols-12 gap-10 mb-14 items-end">
                 <div className="lg:col-span-5">
                   <p className="text-sm font-medium text-[#9ADBE8] mb-3">
                     Operational Scope
@@ -418,33 +316,93 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Clean Editorial Service Rows */}
-              <div className="border border-[#9ADBE8]/35 bg-[#141414]/86 backdrop-blur-sm px-6 sm:px-10">
-                {CORE_SERVICES.map((service) => (
-                  <motion.div
-                    key={service.index}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="py-8 sm:py-10 border-b border-white/12 last:border-b-0 grid md:grid-cols-12 gap-4 md:gap-8 items-baseline"
-                  >
-                    <div className="md:col-span-1 text-sm font-medium text-[#9ADBE8] tabular-nums">
-                      {service.index}.
-                    </div>
-                    <div className="md:col-span-4">
-                      <h3 className="text-xl sm:text-2xl font-medium text-white">
-                        {service.title}
-                      </h3>
-                      <p className="text-xs text-[#9ADBE8]/85 mt-1.5">{service.scope}</p>
-                    </div>
-                    <div className="md:col-span-7">
-                      <p className="text-[15px] sm:text-base text-neutral-300 leading-relaxed max-w-2xl">
-                        {service.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+              {/* Interactive 2x2 Architectural Services Grid — Click to Reveal Details */}
+              <div className="grid md:grid-cols-2 border-t border-l border-white/15 bg-[#141414]/45 backdrop-blur-sm">
+                {CORE_SERVICES.map((service) => {
+                  const isExpanded = expandedService === service.title;
+                  return (
+                    <button
+                      key={service.title}
+                      type="button"
+                      aria-expanded={isExpanded}
+                      onClick={() =>
+                        setExpandedService((prev) =>
+                          prev === service.title ? null : service.title,
+                        )
+                      }
+                      className={`group relative text-left p-8 sm:p-10 border-r border-b border-white/15 flex flex-col justify-between transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#9ADBE8] ${
+                        isExpanded ? 'bg-[#141414]/82' : 'hover:bg-[#141414]/70'
+                      }`}
+                    >
+                      {/* Top hairline accent indicator */}
+                      <span
+                        aria-hidden="true"
+                        className={`pointer-events-none absolute top-0 left-0 right-0 h-[2px] bg-[#9ADBE8] origin-left transition-transform duration-300 ${
+                          isExpanded
+                            ? 'scale-x-100'
+                            : 'scale-x-0 group-hover:scale-x-100'
+                        }`}
+                      />
+
+                      <div className="w-full">
+                        <div className="mb-4">
+                          <h3
+                            className={`text-xl sm:text-2xl font-medium transition-colors ${
+                              isExpanded
+                                ? 'text-[#9ADBE8]'
+                                : 'text-white group-hover:text-[#9ADBE8]'
+                            }`}
+                          >
+                            {service.title}
+                          </h3>
+                          <p className="text-xs text-[#9ADBE8]/80 mt-1.5">{service.scope}</p>
+                        </div>
+
+                        <p className="text-[15px] text-neutral-200 leading-relaxed">
+                          {service.description}
+                        </p>
+
+                        <AnimatePresence initial={false}>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 4 }}
+                              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                              className="mt-6 pt-6 border-t border-white/15 space-y-4"
+                            >
+                              <p className="text-sm text-neutral-300 leading-relaxed">
+                                {service.details}
+                              </p>
+                              <ul className="space-y-2 text-sm text-neutral-200">
+                                {service.capabilities.map((cap) => (
+                                  <li key={cap} className="flex items-start gap-2.5">
+                                    <span className="text-[#9ADBE8]" aria-hidden="true">
+                                      —
+                                    </span>
+                                    <span>{cap}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      <div className="mt-7 pt-4 border-t border-white/10 w-full flex items-center justify-between text-xs">
+                        <span
+                          className={`transition-colors ${
+                            isExpanded
+                              ? 'text-[#9ADBE8]'
+                              : 'text-neutral-400 group-hover:text-[#9ADBE8]'
+                          }`}
+                        >
+                          {isExpanded ? 'Hide details' : 'View details'}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Single Centered Call-to-Action at End of Services Section */}
@@ -452,16 +410,15 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => scrollToSection('quote')}
-                  className="inline-flex items-center gap-2.5 px-9 py-4 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
+                  className="inline-flex items-center justify-center px-9 py-4 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
                 >
-                  <span>Request a Free Quote</span>
-                  <ArrowDownRight className="w-4 h-4" aria-hidden="true" />
+                  Request a Free Quote
                 </button>
               </div>
             </div>
           </section>
 
-          {/* 4. DIFFERENTIATORS, BBBEE STATUS & COLLABORATIONS — Illuminated Mining Plant Backdrop */}
+          {/* 4. DIFFERENTIATORS, BBBEE STATUS & COLLABORATIONS — Staggered Architectural Columns & Open Metrics */}
           <section
             id="credentials"
             className="relative overflow-hidden bg-[#1A1A1A] text-neutral-100 border-b border-white/10"
@@ -470,14 +427,14 @@ export default function App() {
               src={SECTION_IMAGES.credentialsPlantDusk}
               alt="Illuminated steel mining processing plant and electrical substation at twilight"
               imageClassName="opacity-90"
-              scrimClassName="bg-gradient-to-b from-[#1A1A1A]/85 via-[#1A1A1A]/45 to-[#1A1A1A]/88"
+              scrimClassName="bg-gradient-to-b from-[#1A1A1A]/85 via-[#1A1A1A]/55 to-[#1A1A1A]/92"
             />
 
             <ChevronMotif className="hidden md:block absolute top-10 right-10 w-36 opacity-75" />
             <DotMatrixAccent className="hidden lg:block absolute bottom-6 left-6 w-40 opacity-75" />
 
-            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-24">
-              {/* Differentiators */}
+            <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
+              {/* Differentiators Header */}
               <div className="grid lg:grid-cols-12 gap-10 mb-14 items-end">
                 <div className="lg:col-span-6">
                   <p className="text-sm font-medium text-[#9ADBE8] mb-3">
@@ -496,42 +453,51 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {DIFFERENTIATORS.map((item) => (
+              {/* Staggered Open Architectural Columns */}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-white/15 bg-[#141414]/45 backdrop-blur-sm lg:divide-x lg:divide-white/12">
+                {DIFFERENTIATORS.map((item, idx) => (
                   <div
                     key={item.title}
-                    className="p-7 bg-[#141414]/84 backdrop-blur-sm border border-[#9ADBE8]/55 flex flex-col justify-between"
+                    className={`group relative px-6 sm:px-7 pb-9 transition-colors duration-200 hover:bg-[#141414]/75 ${
+                      idx % 2 === 1 ? 'pt-8 lg:pt-14' : 'pt-8 lg:pt-8'
+                    } border-b sm:border-b-0 border-white/12 last:border-b-0`}
                   >
-                    <div>
-                      <span className="block text-xs text-[#9ADBE8] tabular-nums mb-4">
-                        {item.index}
-                      </span>
-                      <h3 className="text-lg font-medium text-[#9ADBE8] mb-3">{item.title}</h3>
-                      <p className="text-sm text-neutral-200 leading-relaxed">{item.description}</p>
-                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="block w-8 h-[1.5px] bg-[#9ADBE8] group-hover:w-full transition-all duration-300 mb-6"
+                    />
+                    <span className="block text-xs text-neutral-400 tabular-nums mb-3">
+                      {item.index}
+                    </span>
+                    <h3 className="text-xl font-medium text-white group-hover:text-[#9ADBE8] transition-colors mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-neutral-200 leading-relaxed">{item.description}</p>
                   </div>
                 ))}
               </div>
 
-              {/* Claim-to-Proof Adjacency: BBBEE Status & Trusted Collaborations */}
-              <div className="mt-16 grid lg:grid-cols-12 gap-10 items-start">
-                <div className="lg:col-span-6 bg-[#141414]/86 backdrop-blur-sm border border-[#9ADBE8]/45 p-7 sm:p-8">
+              {/* Claim-to-Proof Adjacency: Unboxed Broadsheet Metrics & Collaborations */}
+              <div className="mt-20 grid lg:grid-cols-12 gap-14 lg:gap-16 items-start">
+                <div className="lg:col-span-6">
                   <h3 className="text-2xl sm:text-3xl font-medium text-white mb-3">
                     BBBEE <span className="text-[#9ADBE8]">Status</span>
                   </h3>
-                  <p className="text-[15px] text-neutral-300 mb-7 max-w-xl">
+                  <p className="text-[15px] text-neutral-200 mb-8 max-w-xl leading-relaxed">
                     Aiming to participate actively as a competitive local Exempted Micro Enterprise
                     (EME) across South Africa’s mining and industrial supply chains.
                   </p>
 
-                  <dl className="space-y-3">
+                  <dl className="border-t border-white/15">
                     {BBBEE_CREDENTIALS.map((cred) => (
                       <div
                         key={cred.label}
-                        className="px-5 py-3.5 border border-[#9ADBE8]/55 bg-[#1A1A1A]/75 flex items-center justify-between gap-4"
+                        className="group py-5 border-b border-white/15 flex items-baseline justify-between gap-4 transition-colors hover:border-[#9ADBE8]/60"
                       >
-                        <dt className="text-sm text-neutral-200">{cred.label}</dt>
-                        <dd className="text-sm font-medium text-[#9ADBE8] tabular-nums">
+                        <dt className="text-sm sm:text-[15px] text-neutral-200 group-hover:text-white transition-colors">
+                          {cred.label}
+                        </dt>
+                        <dd className="text-lg sm:text-xl font-medium text-[#9ADBE8] tabular-nums">
                           {cred.value}
                         </dd>
                       </div>
@@ -539,27 +505,27 @@ export default function App() {
                   </dl>
                 </div>
 
-                <div className="lg:col-span-6 bg-[#141414]/86 backdrop-blur-sm border border-[#9ADBE8]/45 p-7 sm:p-8">
+                <div className="lg:col-span-6">
                   <h3 className="text-2xl sm:text-3xl font-medium text-white mb-3">
                     Trusted <span className="text-[#9ADBE8]">Collaborations</span>
                   </h3>
-                  <p className="text-[15px] text-neutral-300 mb-7 max-w-xl">
+                  <p className="text-[15px] text-neutral-200 mb-8 max-w-xl leading-relaxed">
                     {COLLABORATIONS.lead}
                   </p>
 
-                  <div className="pt-6 border-t border-white/15 space-y-6">
+                  <div className="pt-7 border-t border-white/15 space-y-7">
                     <div>
                       <p className="text-xs text-neutral-400 mb-3">
                         Institutional &amp; Energy Stakeholders
                       </p>
-                      <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-lg font-medium text-[#9ADBE8]">
+                      <div className="flex flex-wrap items-center gap-x-10 gap-y-2 text-xl font-medium text-[#9ADBE8]">
                         {COLLABORATIONS.namedPartners.map((partner) => (
                           <span key={partner}>{partner}</span>
                         ))}
                       </div>
                     </div>
 
-                    <ul className="pl-5 border-l border-[#9ADBE8]/60 space-y-2.5 text-sm text-neutral-200">
+                    <ul className="pl-5 border-l border-[#9ADBE8]/60 space-y-3 text-sm sm:text-[15px] text-neutral-200">
                       {COLLABORATIONS.principles.map((principle) => (
                         <li key={principle}>{principle}</li>
                       ))}
@@ -570,36 +536,36 @@ export default function App() {
             </div>
           </section>
 
-          {/* 5. CONTACT & QUOTE / CALLBACK REQUEST — Dark Quarry Loader Backdrop */}
+          {/* 5. CONTACT & QUOTE / CALLBACK REQUEST — Open Directory + Minimal Glass Specification Form */}
           <section id="contact" className="relative overflow-hidden bg-[#1A1A1A]">
             <SectionBackdrop
               src={SECTION_IMAGES.heroLoader}
               alt="Mining site wheel loader and rock quarry wall"
               imageClassName="opacity-80 object-left"
-              scrimClassName="bg-gradient-to-l from-[#1A1A1A]/94 via-[#1A1A1A]/75 to-[#1A1A1A]/35"
+              scrimClassName="bg-gradient-to-l from-[#1A1A1A]/95 via-[#1A1A1A]/80 to-[#1A1A1A]/50"
             />
 
             <DotMatrixAccent className="hidden lg:block absolute top-10 right-8 w-40 opacity-75" />
 
             <div
               id="quote"
-              className="relative mx-auto max-w-6xl px-6 py-20 sm:py-24 grid lg:grid-cols-12 gap-12 lg:gap-14 items-start"
+              className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28 grid lg:grid-cols-12 gap-14 lg:gap-16 items-start"
             >
-              {/* Direct Contact Directory */}
-              <div className="lg:col-span-5 bg-[#141414]/88 backdrop-blur-sm border border-[#9ADBE8]/40 p-7 sm:p-9">
+              {/* Unboxed Direct Contact Directory */}
+              <div className="lg:col-span-5">
                 <p className="text-sm font-medium text-[#9ADBE8] mb-3">
                   Direct Enquiries
                 </p>
                 <h2 className="text-3xl sm:text-4xl font-medium text-white mb-5">
                   Get in Touch <span className="text-[#9ADBE8]">With Us</span>
                 </h2>
-                <p className="text-[15px] text-neutral-300 leading-relaxed mb-10">
+                <p className="text-[15px] text-neutral-200 leading-relaxed mb-10">
                   Share your electrical supply specifications, PPE requirements, exploration scope,
                   or delivery schedule. Our team responds promptly to tender and direct procurement
                   enquiries.
                 </p>
 
-                <div className="space-y-5 border-t border-white/15 pt-7 text-sm">
+                <div className="space-y-6 border-t border-white/15 pt-7 text-sm">
                   <div className="flex items-start gap-3.5">
                     <Phone className="w-4 h-4 text-[#9ADBE8] mt-1 shrink-0" aria-hidden="true" />
                     <div>
@@ -623,7 +589,7 @@ export default function App() {
                       >
                         {COMPANY_INFO.enquiriesEmail}
                       </a>
-                      <span className="block text-xs text-neutral-400 mt-1">
+                      <span className="block text-xs text-neutral-300 mt-1">
                         Director: {COMPANY_INFO.director} ({COMPANY_INFO.directorEmail})
                       </span>
                     </div>
@@ -638,20 +604,20 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-400 tabular-nums">
+                <div className="mt-9 pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-300 tabular-nums">
                   <span>Reg No: {COMPANY_INFO.regNo}</span>
                   <span>Supplier No: {COMPANY_INFO.supplierNo}</span>
                   <span>{COMPANY_INFO.website}</span>
                 </div>
               </div>
 
-              {/* Minimalist Dark Quote Form */}
+              {/* Minimalist Frosted Glass Specification Form */}
               <div className="lg:col-span-7">
-                <div className="border border-[#9ADBE8]/40 bg-[#1A1A1A]/90 backdrop-blur-sm p-7 sm:p-10">
-                  <h3 className="text-xl font-medium text-white mb-6">
+                <div className="border-t-2 border-[#9ADBE8] bg-[#141414]/65 backdrop-blur-md p-7 sm:p-10">
+                  <h3 className="text-xl font-medium text-white mb-7">
                     Quote &amp; Specification Form
                   </h3>
-                  <QuoteForm />
+                  <QuoteForm selectedService={expandedService} />
                 </div>
               </div>
             </div>

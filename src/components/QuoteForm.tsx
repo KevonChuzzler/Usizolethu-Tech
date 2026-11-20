@@ -27,10 +27,23 @@ const INITIAL_STATE: QuoteFormState = {
   details: '',
 };
 
-export const QuoteForm: React.FC = () => {
+const INPUT_CLASS =
+  'w-full px-1 py-3.5 text-[15px] text-white bg-transparent border-0 border-b border-white/25 placeholder:text-neutral-500 transition-colors duration-200 focus:outline-none focus:border-[#9ADBE8]';
+
+interface QuoteFormProps {
+  selectedService?: string | null;
+}
+
+export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
   const [form, setForm] = useState<QuoteFormState>(INITIAL_STATE);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submittedData, setSubmittedData] = useState<QuoteFormState | null>(null);
+
+  React.useEffect(() => {
+    if (selectedService) {
+      setForm((prev) => ({ ...prev, service: selectedService }));
+    }
+  }, [selectedService]);
 
   const validate = (): FormErrors => {
     const nextErrors: FormErrors = {};
@@ -89,9 +102,9 @@ export const QuoteForm: React.FC = () => {
 
   if (submittedData) {
     return (
-      <div className="border border-[#9ADBE8]/40 bg-[#141414]/90 p-8 sm:p-10">
-        <div className="flex items-center gap-3 text-white mb-4">
-          <div className="w-8 h-8 bg-[#9ADBE8] flex items-center justify-center">
+      <div className="pt-4">
+        <div className="flex items-center gap-3 text-white mb-5">
+          <div className="w-7 h-7 bg-[#9ADBE8] flex items-center justify-center">
             <Check className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <span className="text-sm font-medium text-[#9ADBE8]">
@@ -102,7 +115,7 @@ export const QuoteForm: React.FC = () => {
         <h3 className="text-2xl font-medium text-white mb-3">
           Thank you, {submittedData.fullName}.
         </h3>
-        <p className="text-neutral-300 text-[15px] mb-6 max-w-xl">
+        <p className="text-neutral-300 text-[15px] mb-6 max-w-xl leading-relaxed">
           Your specification summary for{' '}
           <strong className="font-medium text-white">{submittedData.service}</strong> has been
           validated. Send it directly via your email client to reach our procurement desk, or call{' '}
@@ -115,7 +128,7 @@ export const QuoteForm: React.FC = () => {
           for urgent mine-site dispatches.
         </p>
 
-        <div className="border-t border-white/10 pt-5 mb-7 grid sm:grid-cols-2 gap-4 text-sm">
+        <div className="border-t border-white/15 pt-5 mb-8 grid sm:grid-cols-2 gap-4 text-sm">
           <div>
             <span className="block text-xs text-neutral-400">Organization</span>
             <span className="text-white">{submittedData.company || 'Individual Enquiry'}</span>
@@ -139,7 +152,7 @@ export const QuoteForm: React.FC = () => {
           <button
             type="button"
             onClick={handleReset}
-            className="px-5 py-3 text-sm font-normal text-neutral-300 hover:text-white border border-white/20 bg-transparent transition-colors cursor-pointer"
+            className="px-5 py-3 text-sm font-normal text-neutral-300 hover:text-white border-b border-white/25 hover:border-[#9ADBE8] transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -149,10 +162,10 @@ export const QuoteForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-6">
-      <div className="grid sm:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} noValidate className="space-y-7">
+      <div className="grid sm:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="quote-full-name" className="block text-sm font-medium text-neutral-200 mb-2">
+          <label htmlFor="quote-full-name" className="block text-xs font-medium text-neutral-400 mb-1">
             Full Name <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
@@ -164,7 +177,7 @@ export const QuoteForm: React.FC = () => {
             value={form.fullName}
             onChange={(e) => setForm({ ...form, fullName: e.target.value })}
             aria-invalid={Boolean(errors.fullName)}
-            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
+            className={INPUT_CLASS}
           />
           {errors.fullName && (
             <p className="mt-1.5 text-xs text-red-400" role="alert">
@@ -174,7 +187,7 @@ export const QuoteForm: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="quote-company" className="block text-sm font-medium text-neutral-200 mb-2">
+          <label htmlFor="quote-company" className="block text-xs font-medium text-neutral-400 mb-1">
             Company / Mine Operation
           </label>
           <input
@@ -185,14 +198,14 @@ export const QuoteForm: React.FC = () => {
             placeholder="Organization name"
             value={form.company}
             onChange={(e) => setForm({ ...form, company: e.target.value })}
-            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
+            className={INPUT_CLASS}
           />
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="quote-email" className="block text-sm font-medium text-neutral-200 mb-2">
+          <label htmlFor="quote-email" className="block text-xs font-medium text-neutral-400 mb-1">
             Email Address <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
@@ -204,7 +217,7 @@ export const QuoteForm: React.FC = () => {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             aria-invalid={Boolean(errors.email)}
-            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
+            className={INPUT_CLASS}
           />
           {errors.email && (
             <p className="mt-1.5 text-xs text-red-400" role="alert">
@@ -214,7 +227,7 @@ export const QuoteForm: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="quote-phone" className="block text-sm font-medium text-neutral-200 mb-2">
+          <label htmlFor="quote-phone" className="block text-xs font-medium text-neutral-400 mb-1">
             Telephone / Mobile <span className="text-[#9ADBE8]">*</span>
           </label>
           <input
@@ -226,7 +239,7 @@ export const QuoteForm: React.FC = () => {
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             aria-invalid={Boolean(errors.phone)}
-            className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20 tabular-nums"
+            className={`${INPUT_CLASS} tabular-nums`}
           />
           {errors.phone && (
             <p className="mt-1.5 text-xs text-red-400" role="alert">
@@ -237,7 +250,7 @@ export const QuoteForm: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="quote-service" className="block text-sm font-medium text-neutral-200 mb-2">
+        <label htmlFor="quote-service" className="block text-xs font-medium text-neutral-400 mb-1">
           Primary Supply or Service Category
         </label>
         <select
@@ -245,32 +258,32 @@ export const QuoteForm: React.FC = () => {
           name="service"
           value={form.service}
           onChange={(e) => setForm({ ...form, service: e.target.value })}
-          className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414] border border-white/15 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20"
+          className={`${INPUT_CLASS} cursor-pointer`}
         >
           {CORE_SERVICES.map((svc) => (
-            <option key={svc.index} value={svc.title} className="bg-[#1A1A1A] text-white">
-              {svc.index}. {svc.title}
+            <option key={svc.title} value={svc.title} className="bg-[#1A1A1A] text-white">
+              {svc.title}
             </option>
           ))}
           <option value="General Mining Consultancy & Multi-Supply" className="bg-[#1A1A1A] text-white">
-            05. General Mining Consultancy &amp; Multi-Supply
+            General Mining Consultancy &amp; Multi-Supply
           </option>
         </select>
       </div>
 
       <div>
-        <label htmlFor="quote-details" className="block text-sm font-medium text-neutral-200 mb-2">
+        <label htmlFor="quote-details" className="block text-xs font-medium text-neutral-400 mb-1">
           Project Specifications &amp; Delivery Location <span className="text-[#9ADBE8]">*</span>
         </label>
         <textarea
           id="quote-details"
           name="details"
-          rows={4}
+          rows={3}
           placeholder="Outline equipment or PPE specifications, estimated quantities, delivery province, and target schedule..."
           value={form.details}
           onChange={(e) => setForm({ ...form, details: e.target.value })}
           aria-invalid={Boolean(errors.details)}
-          className="w-full px-4 py-3.5 text-[15px] text-white bg-[#141414]/90 border border-white/15 placeholder:text-neutral-500 transition-colors focus:outline-none focus:border-[#9ADBE8] focus:ring-2 focus:ring-[#9ADBE8]/20 resize-y"
+          className={`${INPUT_CLASS} resize-y`}
         />
         {errors.details && (
           <p className="mt-1.5 text-xs text-red-400" role="alert">
@@ -279,7 +292,7 @@ export const QuoteForm: React.FC = () => {
         )}
       </div>
 
-      <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-xs text-neutral-400 max-w-sm">
           Protected under POPIA. Details are used exclusively to respond to your quotation or
           callback request.
