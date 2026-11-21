@@ -23,7 +23,7 @@ const INITIAL_STATE: QuoteFormState = {
   company: '',
   email: '',
   phone: '',
-  service: CORE_SERVICES[1].title,
+  service: CORE_SERVICES[0].title,
   details: '',
 };
 
@@ -265,8 +265,8 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
               {svc.title}
             </option>
           ))}
-          <option value="General Mining Consultancy & Multi-Supply" className="bg-[#1A1A1A] text-white">
-            General Mining Consultancy &amp; Multi-Supply
+          <option value="Multi-Site Mining & Water Treatment Support" className="bg-[#1A1A1A] text-white">
+            Multi-Site Mining &amp; Water Treatment Support
           </option>
         </select>
       </div>
@@ -279,7 +279,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
           id="quote-details"
           name="details"
           rows={3}
-          placeholder="Outline equipment or PPE specifications, estimated quantities, delivery province, and target schedule..."
+          placeholder="Outline electrical supplies, water treatment chemical volumes, project scope, or site delivery schedule..."
           value={form.details}
           onChange={(e) => setForm({ ...form, details: e.target.value })}
           aria-invalid={Boolean(errors.details)}

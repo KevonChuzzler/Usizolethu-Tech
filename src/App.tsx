@@ -122,14 +122,8 @@ export default function App() {
             {/* Signature PDF 5-Chevron Motif */}
             <ChevronMotif className="hidden md:block absolute top-10 right-10 w-40 opacity-80" />
 
-            <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32">
+            <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-20 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32">
               <div className="max-w-2xl">
-                <p className="text-xs sm:text-sm font-normal text-neutral-300 tabular-nums mb-6">
-                  Reg No. : <span className="text-white">{COMPANY_INFO.regNo}</span>{' '}
-                  <span aria-hidden="true" className="text-[#9ADBE8] mx-1.5">·</span>
-                  Supplier No. : <span className="text-white">{COMPANY_INFO.supplierNo}</span>
-                </p>
-
                 <h1
                   className="text-white font-medium mb-6"
                   style={{
@@ -138,14 +132,14 @@ export default function App() {
                     lineHeight: 1.07,
                   }}
                 >
-                  Reliable mining supply{' '}
-                  <span className="text-[#9ADBE8]">&amp; industrial distribution.</span>
+                  Mining &amp; water treatment{' '}
+                  <span className="text-[#9ADBE8]">supply &amp; project delivery.</span>
                 </h1>
 
                 <p className="text-base sm:text-lg text-neutral-200 font-normal max-w-2xl leading-relaxed mb-10">
-                  Usizolethu Holdings (Pty) Ltd is a South African mining consultancy and
-                  equipment partner delivering electrical mining supplies, certified personal
-                  protective equipment, geological exploration, and national logistics.
+                  Usizolethu Technologies (Pty) Ltd is a South African technical partner delivering
+                  electrical mining supplies, water treatment chemicals, infrastructure project
+                  management, and dependable site support supplies.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-5">
@@ -239,9 +233,9 @@ export default function App() {
                       Vision for <span className="text-[#9ADBE8]">the Future</span>
                     </h3>
                     <p className="text-neutral-200 text-[15px] sm:text-base leading-relaxed max-w-2xl">
-                      We aim to lead the mining industry through efficient distribution of
-                      electrical equipment and personal protective equipment, creating value for
-                      stakeholders while empowering local communities.
+                      We aim to lead across mining and water treatment supply chains through
+                      efficient distribution of electrical equipment, treatment chemicals, and
+                      infrastructure project execution while empowering local communities.
                     </p>
                   </div>
 
@@ -309,9 +303,9 @@ export default function App() {
                 </div>
                 <div className="lg:col-span-7 lg:pl-8 lg:border-l lg:border-[#9ADBE8]/45">
                   <p className="text-neutral-200 text-[15px] sm:text-base leading-relaxed">
-                    Comprehensive mining services—supply and delivery of electrical mining
-                    supplies, personal protective equipment, geological exploration, and national
-                    logistics—delivered with safety and innovation.
+                    Comprehensive mining and water treatment services—electrical mining supplies,
+                    treatment chemicals, infrastructure project management, and dependable site
+                    support—delivered with safety and accountability.
                   </p>
                 </div>
               </div>
@@ -507,7 +501,7 @@ export default function App() {
 
                 <div className="lg:col-span-6">
                   <h3 className="text-2xl sm:text-3xl font-medium text-white mb-3">
-                    Trusted <span className="text-[#9ADBE8]">Collaborations</span>
+                    Partners &amp; <span className="text-[#9ADBE8]">Clients</span>
                   </h3>
                   <p className="text-[15px] text-neutral-200 mb-8 max-w-xl leading-relaxed">
                     {COLLABORATIONS.lead}
@@ -515,10 +509,10 @@ export default function App() {
 
                   <div className="pt-7 border-t border-white/15 space-y-7">
                     <div>
-                      <p className="text-xs text-neutral-400 mb-3">
-                        Institutional &amp; Energy Stakeholders
+                      <p className="text-xs text-neutral-400 mb-4">
+                        Trusted Institutions, Utilities &amp; Mining Operations
                       </p>
-                      <div className="flex flex-wrap items-center gap-x-10 gap-y-2 text-xl font-medium text-[#9ADBE8]">
+                      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-lg font-medium text-[#9ADBE8]">
                         {COLLABORATIONS.namedPartners.map((partner) => (
                           <span key={partner}>{partner}</span>
                         ))}
@@ -560,9 +554,9 @@ export default function App() {
                   Get in Touch <span className="text-[#9ADBE8]">With Us</span>
                 </h2>
                 <p className="text-[15px] text-neutral-200 leading-relaxed mb-10">
-                  Share your electrical supply specifications, PPE requirements, exploration scope,
-                  or delivery schedule. Our team responds promptly to tender and direct procurement
-                  enquiries.
+                  Share your electrical supply specifications, water treatment chemical volumes,
+                  infrastructure project scope, or site delivery schedule. Our team responds promptly
+                  to tender and direct procurement enquiries.
                 </p>
 
                 <div className="space-y-6 border-t border-white/15 pt-7 text-sm">
@@ -605,9 +599,8 @@ export default function App() {
                 </div>
 
                 <div className="mt-9 pt-6 border-t border-white/15 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-300 tabular-nums">
-                  <span>Reg No: {COMPANY_INFO.regNo}</span>
-                  <span>Supplier No: {COMPANY_INFO.supplierNo}</span>
                   <span>{COMPANY_INFO.website}</span>
+                  <span>{COMPANY_INFO.address}</span>
                 </div>
               </div>
 
@@ -629,20 +622,17 @@ export default function App() {
           <div className="mx-auto max-w-6xl px-6 py-14">
             <div className="grid md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
               <div className="md:col-span-5">
-                <p
-                  className="text-lg font-medium text-white mb-2"
-                  style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
-                >
-                  {COMPANY_INFO.shortName}{' '}
-                  <span className="text-[#9ADBE8]">(Pty) Ltd</span>
+                <p className="text-lg font-medium text-white mb-2" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
+                  Usizolethu <span className="text-[#9ADBE8]">Technologies</span>
                 </p>
                 <p className="text-sm text-neutral-400 max-w-sm leading-relaxed">
-                  Electrical mining supplies, certified personal protective equipment, exploration
-                  services, and national distribution.
+                  Electrical mining supplies, water treatment chemicals, infrastructure project
+                  management, and site support supplies.
                 </p>
-                <p className="text-xs text-neutral-500 mt-4 tabular-nums">
-                  Reg. {COMPANY_INFO.regNo} <span aria-hidden="true">·</span> CSD{' '}
-                  {COMPANY_INFO.supplierNo}
+                <p className="text-xs text-neutral-300 mt-4 tabular-nums">
+                  Reg No. : <span className="text-white">{COMPANY_INFO.regNo}</span>{' '}
+                  <span aria-hidden="true" className="text-[#9ADBE8] mx-1.5">·</span>
+                  CSD Supplier No. : <span className="text-white">{COMPANY_INFO.supplierNo}</span>
                 </p>
               </div>
 
@@ -687,7 +677,7 @@ export default function App() {
                   <li>
                     <a
                       href={COMPANY_INFO.profilePdfSrc}
-                      download="Usizolethu_Holdings_Company_Profile.pdf"
+                      download="Usizolethu_Technologies_Company_Profile.pdf"
                       className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-[#9ADBE8] underline underline-offset-4 transition-colors"
                     >
                       <span>Download Company Profile (PDF)</span>

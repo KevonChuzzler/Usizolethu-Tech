@@ -19,8 +19,8 @@ export interface DifferentiatorItem {
 }
 
 export const COMPANY_INFO = {
-  legalName: 'Usizolethu Holdings (Pty) Ltd',
-  shortName: 'Usizolethu Holdings',
+  legalName: 'Usizolethu Technologies (Pty) Ltd',
+  shortName: 'Usizolethu Technologies',
   regNo: '2023/551466/07',
   supplierNo: 'MAAA1615450',
   director: 'Vuyo Nyathikazi',
@@ -35,10 +35,10 @@ export const COMPANY_INFO = {
 };
 
 export const ABOUT_SUMMARY =
-  'Usizolethu Holdings (Pty) Ltd is a mining consultancy and supply enterprise strategically positioned to serve a diverse clientele across South Africa’s mining sector. Founded by a young black Chief Executive Officer, the company pairs disciplined operational execution with community empowerment and environmentally responsible delivery.';
+  'Usizolethu Technologies (Pty) Ltd is a specialized consultancy and supply enterprise strategically positioned to serve South Africa’s mining and water treatment sectors. Founded by a young black Chief Executive Officer, the company pairs disciplined technical delivery with community empowerment and environmentally responsible operations.';
 
 export const ABOUT_HIGHLIGHTS = [
-  'Trusted mining equipment supplier',
+  'Trusted mining & water treatment supplier',
   'Committed to eco-friendly operations',
   'Operating nationally with local focus',
   'Innovation-driven safe efficiency',
@@ -48,42 +48,28 @@ export const STRATEGIC_PILLARS: StrategicPillar[] = [
   {
     title: 'Vision',
     description:
-      'To be the national benchmark in the efficient distribution of electrical mining supplies and personal protective equipment.',
+      'To be the national benchmark in the efficient delivery of electrical mining supplies, water treatment chemicals, and critical infrastructure support.',
   },
   {
     title: 'Mission',
     description:
-      'Delivering essential industrial and mining resources responsibly while maximizing long-term stakeholder value.',
+      'Delivering essential mining and water treatment resources responsibly while maximizing long-term stakeholder value.',
   },
   {
     title: 'Commitment',
     description:
-      'Prioritizing workplace safety, environmentally responsible practices, and healthy operating conditions across every site.',
+      'Prioritizing workplace safety, environmentally responsible water and site practices, and compliant execution across every project.',
   },
   {
     title: 'Approach',
     description:
-      'Driving practical innovation and accountable supply coordination in every phase of mining operations.',
+      'Driving practical engineering coordination and accountable supply management in every phase of operations.',
   },
 ];
 
 export const CORE_SERVICES: ServiceItem[] = [
   {
     index: '01',
-    title: 'Exploration',
-    scope: 'Geological Surveys · Resource Discovery',
-    description:
-      'Structured geological surveys and modern exploration technology supporting accurate site assessment, mineral mapping, and early-stage resource discovery.',
-    details:
-      'Our exploration consultancy supports project owners from preliminary reconnaissance through site delineation. We combine field survey execution with modern geophysical and mapping workflows to reduce uncertainty prior to capital deployment.',
-    capabilities: [
-      'Surface and subsurface geological site assessments',
-      'Mineral deposit mapping and resource boundary verification',
-      'Exploration technology coordination with environmental compliance',
-    ],
-  },
-  {
-    index: '02',
     title: 'Electrical Mining Supplies',
     scope: 'Industrial Power · Mine Infrastructure',
     description:
@@ -97,31 +83,45 @@ export const CORE_SERVICES: ServiceItem[] = [
     ],
   },
   {
-    index: '03',
-    title: 'Safe Equipment Supplies',
-    scope: 'Personal Protective Equipment · Workforce Safety',
+    index: '02',
+    title: 'Water Treatment Chemicals and Supplies',
+    scope: 'Process Water · Effluent & Potable Treatment',
     description:
-      'High-specification personal protective equipment (PPE) and safety gear built to protect mining personnel and maintain strict regulatory site compliance.',
+      'Consistent procurement and bulk delivery of industrial water treatment chemicals, dosing consumables, and plant supplies for municipal and mine-water facilities.',
     details:
-      'Safety underpins every operation we serve. We procure and deliver durable, certified PPE tailored for underground crews, plant operators, and surface engineering teams in accordance with South African mine health and safety standards.',
+      'Clean process water and compliant effluent management are essential to mine and municipal continuity. We supply quality-assured treatment chemicals and plant consumables tailored to raw-water clarification, pH correction, and disinfection.',
     capabilities: [
-      'Impact-rated hardhats, high-visibility workwear, and protective footwear',
-      'Respiratory, hearing, and eye protection for high-dust zones',
-      'Bulk replenishment schedules for active mine sites and contractors',
+      'Coagulants, flocculants, and pH-balancing treatment chemicals',
+      'Dosing consumables, filtration media, and testing supplies',
+      'Scheduled bulk replenishment for municipal and mine treatment plants',
+    ],
+  },
+  {
+    index: '03',
+    title: 'Project Management for Mining and Water Treatment Infrastructure Projects',
+    scope: 'Capital Delivery · Technical Coordination',
+    description:
+      'Structured end-to-end project management covering planning, contractor coordination, procurement scheduling, and commissioning for mining and water treatment infrastructure.',
+    details:
+      'We guide complex infrastructure upgrades and new installations from initial scope definition through handover—aligning engineering milestones, safety compliance, and material lead times to keep sites on budget and on schedule.',
+    capabilities: [
+      'Scope scheduling, resource planning, and milestone governance',
+      'Multi-contractor coordination for plant and reticulation builds',
+      'Quality assurance, SHEQ compliance, and commissioning handover',
     ],
   },
   {
     index: '04',
-    title: 'Logistics',
-    scope: 'National Transport · Scheduled Distribution',
+    title: 'General Mining and Water Treatment Site Support Supplies',
+    scope: 'Site Operations · PPE & Maintenance Consumables',
     description:
-      'Reliable transport, fleet coordination, and scheduled distribution connecting equipment hubs directly to regional and national mining markets.',
+      'Comprehensive day-to-day operational supplies—including certified PPE, maintenance hardware, and site support consumables—delivered directly to active mining and water sites.',
     details:
-      'We bridge the gap between industrial manufacturers and remote mining operations across Mpumalanga and national corridors, managing dispatch scheduling, load security, and on-site delivery accountability.',
+      'Keep active crews equipped and sites compliant with one accountable supply partner. We consolidate routine site consumables, safety gear, and mechanical hardware into dependable scheduled deliveries.',
     capabilities: [
-      'Scheduled mine-site freight across regional and national routes',
-      'Urgent plant and replacement-part dispatch coordination',
-      'End-to-end chain-of-custody tracking to mine receiving bays',
+      'Certified personal protective equipment (PPE) for site personnel',
+      'Valves, fittings, tools, and routine plant maintenance hardware',
+      'Direct-to-site logistics for regional and national operations',
     ],
   },
 ];
@@ -149,7 +149,7 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
     index: '04',
     title: 'Leadership',
     description:
-      'Building a benchmark 100% black youth-owned and led provider of mining plant, electrical infrastructure, and safety equipment.',
+      'Building a benchmark 100% black youth-owned and led provider of mining and water treatment infrastructure and supplies.',
   },
 ];
 
@@ -161,11 +161,16 @@ export const BBBEE_CREDENTIALS = [
 ];
 
 export const COLLABORATIONS = {
-  lead: 'Strong partnerships with energy utilities, municipal authorities, and construction enterprises support sustainable growth and dependable long-term delivery.',
-  namedPartners: ['Eskom', 'Emalahleni Local Municipality'],
+  lead: 'Strong partnerships across municipal authorities, national energy utilities, catchment agencies, and active mining operations drive compliant, long-term delivery.',
+  namedPartners: [
+    'Emalahleni Local Municipality',
+    'ESKOM',
+    'Inkomati-Usuthu Catchment Area',
+    'Fairview Mine',
+  ],
   principles: [
-    'Public and energy sector alignment ensuring fully compliant growth',
-    'Long-term supply contracts structured for operational stability',
-    'Ethical governance guiding responsible mining procurement',
+    'Municipal, catchment, and energy alignment ensuring compliant growth',
+    'Long-term supply and infrastructure contracts structured for stability',
+    'Ethical governance guiding responsible mining and water practices',
   ],
 };
