@@ -576,7 +576,7 @@ export default function App() {
                   <div className="flex items-start gap-3.5">
                     <Mail className="w-4 h-4 text-[#9ADBE8] mt-1 shrink-0" aria-hidden="true" />
                     <div>
-                      <span className="block text-xs text-neutral-400">General Enquiries</span>
+                      <span className="block text-xs text-neutral-400">Email Enquiries</span>
                       <a
                         href={`mailto:${COMPANY_INFO.enquiriesEmail}`}
                         className="text-white hover:text-[#9ADBE8] transition-colors"
@@ -584,7 +584,7 @@ export default function App() {
                         {COMPANY_INFO.enquiriesEmail}
                       </a>
                       <span className="block text-xs text-neutral-300 mt-1">
-                        Director: {COMPANY_INFO.director} ({COMPANY_INFO.directorEmail})
+                        Director: {COMPANY_INFO.director}
                       </span>
                     </div>
                   </div>
