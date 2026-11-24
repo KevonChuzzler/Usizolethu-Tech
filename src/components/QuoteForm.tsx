@@ -9,6 +9,7 @@ interface QuoteFormState {
   phone: string;
   service: string;
   details: string;
+  website: string;
 }
 
 interface FormErrors {
@@ -25,6 +26,7 @@ const INITIAL_STATE: QuoteFormState = {
   phone: '',
   service: CORE_SERVICES[0].title,
   details: '',
+  website: '',
 };
 
 const INPUT_CLASS =
@@ -89,10 +91,11 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
       phone: form.phone.trim(),
       service: form.service,
       details: form.details.trim(),
+      website: form.website,
     };
 
     try {
-      const response = await fetch('/api/quote', {
+      const response = await fetch('/api/quote.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -210,6 +213,18 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-7">
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor="quote-website">Website</label>
+        <input
+          id="quote-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={(e) => setForm({ ...form, website: e.target.value })}
+        />
+      </div>
       <div className="grid sm:grid-cols-2 gap-8">
         <div>
           <label htmlFor="quote-full-name" className="block text-xs font-medium text-neutral-400 mb-1">

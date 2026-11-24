@@ -684,6 +684,15 @@ export default function App() {
                       <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="/sitemap.xml"
+                      className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-[#9ADBE8] underline underline-offset-4 transition-colors"
+                    >
+                      <span>Sitemap (XML)</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

@@ -3,7 +3,6 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { processQuoteSubmission } from './lib/quoteMailer.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,22 +12,17 @@ async function startServer() {
   const port = Number(process.env.PORT) || 3000;
   const isProd = process.env.NODE_ENV === 'production';
 
-  app.set('trust proxy', 1);
-  app.use(express.json({ limit: '32kb' }));
-
-  app.post('/api/quote', async (req, res) => {
-    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
-    const result = await processQuoteSubmission(req.body, clientIp);
-
-    if (!result.ok) {
-      res.status(result.status).json({ ok: false, error: result.error });
+  app.all('/api/quote.php', (req, res) => {
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST');
+      res.status(405).json({ ok: false, error: 'Method not allowed.' });
       return;
     }
 
-    res.status(200).json({
-      ok: true,
-      id: result.id,
-      message: result.message,
+    res.status(503).json({
+      ok: false,
+      error:
+        'PHP mail delivery runs on your live DirectAdmin server (usizolethu.co.za). In preview mode, please use the email client link below.',
     });
   });
 
