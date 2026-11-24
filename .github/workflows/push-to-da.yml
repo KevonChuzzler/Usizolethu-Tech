@@ -29,10 +29,7 @@ jobs:
         env:
           DA_SSH_KEY: ${{ secrets.DA_SSH_KEY }}
         run: |
-          if [ -z "$DA_SSH_KEY" ]; then
-            echo "Error: DA_SSH_KEY repository secret is not set." >&2
-            exit 1
-          fi
+          if [ -z "$DA_SSH_KEY" ]; then echo "Error: DA_SSH_KEY secret is empty or not attached to this job." >&2; exit 1; fi
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           printf '%s\n' "$DA_SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
@@ -41,6 +38,8 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Push dist build to DirectAdmin Git remote
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes
         run: |
           cd dist
           git init
