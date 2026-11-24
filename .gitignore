@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+*.pem
+*.key
+id_ed25519*

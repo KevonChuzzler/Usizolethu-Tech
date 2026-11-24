@@ -34,9 +34,13 @@ interface QuoteFormProps {
   selectedService?: string | null;
 }
 
+const RECIPIENT_EMAIL = 'info@usizolethu.co.za';
+
 export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
   const [form, setForm] = useState<QuoteFormState>(INITIAL_STATE);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submittedData, setSubmittedData] = useState<QuoteFormState | null>(null);
 
   React.useEffect(() => {
@@ -64,20 +68,63 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
     return nextErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     setErrors({});
-    setSubmittedData({ ...form });
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    const payload: QuoteFormState = {
+      fullName: form.fullName.trim(),
+      company: form.company.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      service: form.service,
+      details: form.details.trim(),
+    };
+
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.ok) {
+        setSubmitError(
+          result?.error ||
+            `We could not send your request right now. Please try again or email ${RECIPIENT_EMAIL}.`,
+        );
+        return;
+      }
+
+      setSubmittedData(payload);
+    } catch {
+      setSubmitError(
+        `Network error while sending your request. Please check your connection or email ${RECIPIENT_EMAIL}.`,
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setForm(INITIAL_STATE);
     setErrors({});
+    setSubmitError(null);
     setSubmittedData(null);
   };
 
@@ -97,7 +144,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
         data.details,
       ].join('\n'),
     );
-    return `mailto:${COMPANY_INFO.enquiriesEmail}?subject=${subject}&body=${body}`;
+    return `mailto:${RECIPIENT_EMAIL}?subject=${subject}&body=${body}`;
   };
 
   if (submittedData) {
@@ -108,7 +155,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
             <Check className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <span className="text-sm font-medium text-[#9ADBE8]">
-            Enquiry Prepared for Review
+            Quote Request Sent
           </span>
         </div>
 
@@ -116,16 +163,23 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
           Thank you, {submittedData.fullName}.
         </h3>
         <p className="text-neutral-300 text-[15px] mb-6 max-w-xl leading-relaxed">
-          Your specification summary for{' '}
-          <strong className="font-medium text-white">{submittedData.service}</strong> has been
-          validated. Send it directly via your email client to reach our procurement desk, or call{' '}
+          Your specification request for{' '}
+          <strong className="font-medium text-white">{submittedData.service}</strong> has been sent
+          to{' '}
+          <a
+            href={`mailto:${RECIPIENT_EMAIL}`}
+            className="text-[#9ADBE8] underline underline-offset-4 hover:text-white"
+          >
+            {RECIPIENT_EMAIL}
+          </a>
+          . For urgent mine-site dispatches, you may also reach us on{' '}
           <a
             href={COMPANY_INFO.phoneHref}
             className="text-[#9ADBE8] underline underline-offset-4 tabular-nums hover:text-white"
           >
             {COMPANY_INFO.phoneDisplay}
-          </a>{' '}
-          for urgent mine-site dispatches.
+          </a>
+          .
         </p>
 
         <div className="border-t border-white/15 pt-5 mb-8 grid sm:grid-cols-2 gap-4 text-sm">
@@ -142,17 +196,10 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
-          <a
-            href={buildMailtoHref(submittedData)}
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors"
-          >
-            <span>Send via Email Client</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
           <button
             type="button"
             onClick={handleReset}
-            className="px-5 py-3 text-sm font-normal text-neutral-300 hover:text-white border-b border-white/25 hover:border-[#9ADBE8] transition-colors cursor-pointer"
+            className="px-6 py-3 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors cursor-pointer"
           >
             Submit Another Request
           </button>
@@ -292,16 +339,34 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({ selectedService }) => {
         )}
       </div>
 
+      {submitError && (
+        <div
+          role="alert"
+          className="border-t border-b border-red-400/40 bg-red-950/25 px-4 py-3 text-sm text-red-200 space-y-2"
+        >
+          <p>{submitError}</p>
+          <a
+            href={buildMailtoHref(form)}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#9ADBE8] hover:text-white underline underline-offset-4"
+          >
+            <span>Send directly via your email client</span>
+            <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+          </a>
+        </div>
+      )}
+
       <div className="pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-xs text-neutral-400 max-w-sm">
-          Protected under POPIA. Details are used exclusively to respond to your quotation or
-          callback request.
+          Protected under POPIA. Details are dispatched directly to{' '}
+          <span className="text-neutral-200">{RECIPIENT_EMAIL}</span> exclusively to respond to
+          your quotation request.
         </p>
         <button
           type="submit"
-          className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
+          disabled={isSubmitting}
+          className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-[#1A1A1A] bg-[#9ADBE8] hover:bg-white disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9ADBE8]"
         >
-          Submit Quote Request
+          {isSubmitting ? 'Sending Request...' : 'Submit Quote Request'}
         </button>
       </div>
     </form>
