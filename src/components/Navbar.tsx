@@ -37,29 +37,11 @@ export const Navbar: React.FC<NavbarProps> = ({ headerRef, onNavigate }) => {
           className="flex items-center gap-2.5 text-lg font-medium text-white whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9ADBE8]"
           style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 64 64"
-            fill="none"
-            aria-hidden="true"
-            className="shrink-0"
-          >
-            <path
-              d="M16 14L24 10V34C24 40 27.5 43.5 32 43.5C36.5 43.5 40 40 40 34V14L48 10V34C48 45 41 51.5 32 51.5C23 51.5 16 45 16 34V14Z"
-              fill="#9ADBE8"
-            />
-            <ellipse
-              cx="32"
-              cy="34"
-              rx="25"
-              ry="7.5"
-              transform="rotate(-18 32 34)"
-              stroke="#FFFFFF"
-              strokeWidth="3.5"
-              fill="none"
-            />
-          </svg>
+          <img
+            src={COMPANY_INFO.logoSrc}
+            alt="Usizolethu Technologies logo"
+            className="h-10 w-10 object-contain bg-white p-0.5 shrink-0"
+          />
           <span>{COMPANY_INFO.shortName}</span>
         </a>
 

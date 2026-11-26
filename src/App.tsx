@@ -10,6 +10,7 @@ import {
   Phone,
   Target,
   TrendingUp,
+  User,
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { PrivacyModal, PrivacyModalMode } from './components/PrivacyModal';
@@ -142,7 +143,7 @@ export default function App() {
                   management, and dependable site support supplies.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-5">
+                <div className="flex flex-wrap items-center gap-6">
                   <button
                     type="button"
                     onClick={() => scrollToSection('quote')}
@@ -151,6 +152,15 @@ export default function App() {
                     <span>Request a Free Quote</span>
                     <ArrowDownRight className="w-4 h-4" aria-hidden="true" />
                   </button>
+                  <a
+                    href={COMPANY_INFO.parentCompanyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-[#9ADBE8] underline underline-offset-4 transition-colors whitespace-nowrap"
+                  >
+                    <span>Parent Company: {COMPANY_INFO.parentCompanyName}</span>
+                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -210,19 +220,34 @@ export default function App() {
                     ))}
                   </ul>
 
-                  <div className="mt-9 pt-7 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
-                    <div>
-                      <p className="text-xs text-neutral-400">Director &amp; Founder</p>
-                      <p className="text-base font-medium text-white mt-0.5">
-                        {COMPANY_INFO.director}
-                      </p>
-                    </div>
-                    <a
-                      href={`mailto:${COMPANY_INFO.directorEmail}`}
-                      className="text-sm text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
+                  <div className="mt-9 pt-7 border-t border-white/15 flex flex-col sm:flex-row sm:items-center gap-5">
+                    {/* Director Portrait Placeholder */}
+                    <div
+                      aria-label="Director portrait placeholder for Vuyo Nyathikazi"
+                      className="relative w-24 h-28 shrink-0 border border-white/20 border-t-2 border-t-[#9ADBE8] bg-[#141414]/85 flex flex-col items-center justify-center gap-1.5 overflow-hidden"
                     >
-                      {COMPANY_INFO.directorEmail}
-                    </a>
+                      <User className="w-7 h-7 text-[#9ADBE8]/75" aria-hidden="true" />
+                      <span className="text-[10px] tracking-wider uppercase text-neutral-400">
+                        Photo Soon
+                      </span>
+                    </div>
+
+                    <div className="flex-1 space-y-2">
+                      <div>
+                        <p className="text-xs text-neutral-400">Director &amp; Founder</p>
+                        <p className="text-base font-medium text-white mt-0.5">
+                          {COMPANY_INFO.director}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm">
+                        <a
+                          href={`mailto:${COMPANY_INFO.directorEmail}`}
+                          className="text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
+                        >
+                          {COMPANY_INFO.directorEmail}
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -622,9 +647,32 @@ export default function App() {
           <div className="mx-auto max-w-6xl px-6 py-14">
             <div className="grid md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
               <div className="md:col-span-5">
-                <p className="text-lg font-medium text-white mb-2" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}>
-                  Usizolethu <span className="text-[#9ADBE8]">Technologies</span>
-                </p>
+                <div className="flex items-center gap-3.5 mb-3">
+                  <img
+                    src={COMPANY_INFO.logoSrc}
+                    alt="Usizolethu Technologies logo"
+                    className="h-14 w-14 object-contain bg-white p-1 shrink-0"
+                  />
+                  <div>
+                    <p
+                      className="text-lg font-medium text-white"
+                      style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
+                    >
+                      Usizolethu <span className="text-[#9ADBE8]">Technologies</span>
+                    </p>
+                    <p className="text-xs text-neutral-400">
+                      A subsidiary of{' '}
+                      <a
+                        href={COMPANY_INFO.parentCompanyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
+                      >
+                        {COMPANY_INFO.parentCompanyName}
+                      </a>
+                    </p>
+                  </div>
+                </div>
                 <p className="text-sm text-neutral-400 max-w-sm leading-relaxed">
                   Electrical mining supplies, water treatment chemicals, infrastructure project
                   management, and site support supplies.
@@ -690,6 +738,17 @@ export default function App() {
                       className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-[#9ADBE8] underline underline-offset-4 transition-colors"
                     >
                       <span>Sitemap (XML)</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={COMPANY_INFO.parentCompanyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
+                    >
+                      <span>{COMPANY_INFO.parentCompanyName} (Parent Company)</span>
                       <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                     </a>
                   </li>

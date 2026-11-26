@@ -29,7 +29,9 @@ export const COMPANY_INFO = {
   phoneDisplay: '+27 72 951 3106',
   phoneHref: 'tel:+27729513106',
   website: 'www.usizolethu.com',
-  address: 'Stand no. 80888, Daantjie Trust, 1216',
+  address: 'Office No. 2B, 44A Murray Street, Nelspruit, 1201',
+  parentCompanyName: 'Gebe Group',
+  parentCompanyUrl: 'https://gebegroup.co.za',
   logoSrc: '/assets/aistudio/WhatsApp_Image_2026-11-19_at_17.36.14_2cc48165.jpeg',
   profilePdfSrc: '/assets/aistudio/Mining_Company_Profile_8fd0e86e.pdf',
 };
@@ -156,7 +158,6 @@ export const DIFFERENTIATORS: DifferentiatorItem[] = [
 export const BBBEE_CREDENTIALS = [
   { label: 'Black Ownership', value: '100%' },
   { label: 'Youth Ownership', value: '100%' },
-  { label: 'Male Ownership', value: '100%' },
   { label: 'BBBEE Recognition', value: 'Level 1 Contributor' },
 ];
 
