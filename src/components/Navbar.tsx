@@ -38,9 +38,9 @@ export const Navbar: React.FC<NavbarProps> = ({ headerRef, onNavigate }) => {
           style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
         >
           <img
-            src={COMPANY_INFO.logoSrc}
+            src={COMPANY_INFO.logoMarkSrc}
             alt="Usizolethu Technologies logo"
-            className="h-10 w-10 object-contain bg-white p-0.5 shrink-0"
+            className="h-9 w-auto object-contain shrink-0"
           />
           <span>{COMPANY_INFO.shortName}</span>
         </a>

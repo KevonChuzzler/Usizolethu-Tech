@@ -10,7 +10,6 @@ import {
   Phone,
   Target,
   TrendingUp,
-  User,
 } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { PrivacyModal, PrivacyModalMode } from './components/PrivacyModal';
@@ -219,36 +218,6 @@ export default function App() {
                       </li>
                     ))}
                   </ul>
-
-                  <div className="mt-9 pt-7 border-t border-white/15 flex flex-col sm:flex-row sm:items-center gap-5">
-                    {/* Director Portrait Placeholder */}
-                    <div
-                      aria-label="Director portrait placeholder for Vuyo Nyathikazi"
-                      className="relative w-24 h-28 shrink-0 border border-white/20 border-t-2 border-t-[#9ADBE8] bg-[#141414]/85 flex flex-col items-center justify-center gap-1.5 overflow-hidden"
-                    >
-                      <User className="w-7 h-7 text-[#9ADBE8]/75" aria-hidden="true" />
-                      <span className="text-[10px] tracking-wider uppercase text-neutral-400">
-                        Photo Soon
-                      </span>
-                    </div>
-
-                    <div className="flex-1 space-y-2">
-                      <div>
-                        <p className="text-xs text-neutral-400">Director &amp; Founder</p>
-                        <p className="text-base font-medium text-white mt-0.5">
-                          {COMPANY_INFO.director}
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm">
-                        <a
-                          href={`mailto:${COMPANY_INFO.directorEmail}`}
-                          className="text-[#9ADBE8] hover:text-white underline underline-offset-4 transition-colors"
-                        >
-                          {COMPANY_INFO.directorEmail}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Right Column: Vision for the Future — Open Translucent Crosshair Grid */}
@@ -649,9 +618,9 @@ export default function App() {
               <div className="md:col-span-5">
                 <div className="flex items-center gap-3.5 mb-3">
                   <img
-                    src={COMPANY_INFO.logoSrc}
+                    src={COMPANY_INFO.logoMarkSrc}
                     alt="Usizolethu Technologies logo"
-                    className="h-14 w-14 object-contain bg-white p-1 shrink-0"
+                    className="h-11 w-auto object-contain shrink-0"
                   />
                   <div>
                     <p

@@ -33,6 +33,7 @@ export const COMPANY_INFO = {
   parentCompanyName: 'Gebe Group',
   parentCompanyUrl: 'https://gebegroup.co.za',
   logoSrc: '/assets/aistudio/WhatsApp_Image_2026-11-19_at_17.36.14_2cc48165.jpeg',
+  logoMarkSrc: '/assets/logo-mark.png',
   profilePdfSrc: '/assets/aistudio/Mining_Company_Profile_8fd0e86e.pdf',
 };
 
